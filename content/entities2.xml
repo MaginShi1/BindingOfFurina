@@ -1,0 +1,3 @@
+<entities anm2root="gfx/" version="5">
+    <entity name="Usher" id="3" anm2path="familiar_usher.anm2" shadowSize="11" friction="1"/>
+</entities>
