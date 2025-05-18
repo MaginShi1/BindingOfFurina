@@ -8,7 +8,7 @@ local RNG_SHIFT_INDEX  = 35
 
 local SHOOTING_TICK_COOLDOWN = 10
 local TEAR_SPEED = 10
-local TEAR_SCALE = 3
+local TEAR_SCALE =  1
 local TEAR_DAMAGE = 3
 
 
@@ -44,19 +44,21 @@ function mod:HandleUpdate(familiar)
     local shootAnim
     local doFlip = false
 
-    if fireDirection == Direction.Left then 
-        irection = Vector(-1, 0)
+    if fireDirection == Direction.LEFT then 
+        direction = Vector(-1, 0)
         shootAnim = "FloatShootSide"
         doFlip = true
-    elseif fireDirection == Direction.Right then
+    elseif fireDirection == Direction.RIGHT then
         direction = Vector(1, 0)
         shootAnim = "FloatShootSide"
-    elseif fireDirection == Direction.Up then
+    elseif fireDirection == Direction.UP then
         direction = Vector(0, -1)
-        shootAnim = "FloatShootDown"
-    elseif fireDirection == Direction.Down then
+        shootAnim = "FloatShootUp"
+    elseif fireDirection == Direction.DOWN then
         direction = Vector(0, 1)
-        shootAnim = "ShootDownUp"
+        shootAnim = "FloatShootDown"
+    elseif not sprite:IsPlaying("FloatDown") then
+    sprite:Play("FloatDown", true)
     end
 
     if direction ~= nil and familiar.FireCooldown == 0 then
@@ -65,16 +67,12 @@ function mod:HandleUpdate(familiar)
             (EntityType.ENTITY_TEAR, TearVariant.BLUE, 0, familiar.Position, velocity, familiar):ToTear()
 
         tear.Scale = TEAR_SCALE
-        tear.ColisionDamage = TEAR_DAMAGE
+        tear.CollisionDamage = TEAR_DAMAGE
 
         familiar.FireCooldown = SHOOTING_TICK_COOLDOWN
 
         sprite.FlipX = doFlip
-        sprite:Play("shootAnim", true)
-    end
-
-    if sprite:IsFinished("shootAnim") then
-        sprite:Play("FloatDown", true)
+        sprite:Play(shootAnim, true)
     end
 
     familiar:FollowParent()

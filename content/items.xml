@@ -1,3 +1,3 @@
 <items gfxroot="gfx/items/" version="1">
-    <familiar name = "Usher" descrpition="Strike a pose!"  quality="4" cache="familiars" tags="baby offensive summonable monstermanual" />
+    <familiar name = "Usher" descrpition="Gentilhomme Usher"  quality="4" cache="familiars" tags="baby offensive summonable monstermanual" />
 </items>
